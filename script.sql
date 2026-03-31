@@ -1,3 +1,5 @@
+--Exercicios da apostila 08 feitos pela Helô
+
 --1.1 Faça um programa que gere um valor inteiro e o exiba.
 -- números inteiros [1, 100]
 
