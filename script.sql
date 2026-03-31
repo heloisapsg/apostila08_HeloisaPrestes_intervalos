@@ -27,7 +27,7 @@ DECLARE
 	limite_superior INT := 10;
 
 BEGIN	
-	n := floor(random() *(limite_superior - limite_inferior +1) + limite_inferior);
+	n := random() * (limite_superior - limite_inferior) + limite_inferior ;--(limite_superior - limite_inferior+1) + limite_inferior;
 	RAISE NOTICE '%', n;
 
 END;
@@ -48,7 +48,7 @@ DECLARE
 BEGIN
 	temperaturaC := floor(random()*(limite_superior - limite_inferior + 1)+ limite_inferior);
 	RAISE NOTICE 'A temperatura em Celsius é: %', temperaturaC;
-	temperaturaF := (temperaturaC * 1,8) + 32;
+	temperaturaF := (temperaturaC * 1.8) + 32;
 	RAISE NOTICE 'A temperatura em Fahrenheit é %', temperaturaF;
 
 END; 
@@ -68,8 +68,6 @@ DECLARE
 	b NUMERIC(8,2);
 	c NUMERIC(8,2);
 	delta NUMERIC (8,2);
-	xUm NUMERIC (8,2);
-	xDois NUMERIC(8,2);
 
 BEGIN
 
@@ -97,16 +95,19 @@ DO $$
 
 DECLARE
 	n INT;
-	raiz_cubica INT;
-	raiz_quadrada INT;
+	raiz_cubica NUMERIC (8,2);
+	raiz_quadrada NUMERIC (8,2);
 	limite_inferior INT := 1;
 	limite_superior INT := 100;
 
 BEGIN
 	n := floor(random()*(limite_superior - limite_inferior +1) + limite_inferior)::int;
 
-	raiz_cubica := (n-1) ^ (1/3) ; 
+
+	raiz_cubica := (n-1) ^ (1.0/3.0) ; 
 	raiz_quadrada := (n+1) ^0.5;
+
+	--RAISE NOTICE 'Antecessor: %, N: %, Sucessor: %', n-1, n, n+1;
         
 	RAISE NOTICE 'Raiz cúbica do antecessor: %', raiz_cubica;
 	RAISE NOTICE 'Raiz quadrada do sucessor: %', raiz_quadrada;
@@ -124,8 +125,8 @@ DO $$
 
 DECLARE
 	medida_terreno NUMERIC(4,2);
-	lado1 := NUMERIC(4,2);
-	lado2 := NUMERIC(4,2)
+	lado1 NUMERIC(4,2);
+	lado2 NUMERIC(4,2);
 	medida_min INT := 1;
 	medida_max INT := 10;
 
@@ -140,7 +141,7 @@ BEGIN
 	lado2 := floor(random() *(medida_max - medida_min +1) + medida_min);
 
 	IF lado1 = lado2 THEN --é um retângulo, não um quadrado
-		
+		RAISE NOTICE 'ops, de novo';
 		lado2 := floor(random() *(medida_max - medida_min +1) + medida_min);
 
 	ELSE
@@ -151,6 +152,7 @@ BEGIN
 		
 		valor_total := preco * medida_terreno;
 
+		--RAISE NOTICE 'lado 1 = %, lado 2 = %, área = % --- preço gerado = R$ % ---', lado1, lado2, medida_terreno, preco;
 		RAISE NOTICE 'O valor total é: R$ %', valor_total;
 		
 	
